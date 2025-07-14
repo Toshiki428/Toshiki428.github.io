@@ -1,0 +1,304 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.27.1 by Michael Rose
+  Copyright 2013-2025 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>セクタサイズが原因？LocalDBが起動しないトラブルの解析記録 - 若葉ログ</title>
+<meta name="description" content="事前知識">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="若葉ログ">
+<meta property="og:title" content="セクタサイズが原因？LocalDBが起動しないトラブルの解析記録">
+<meta property="og:url" content="/%E8%A7%A3%E6%9E%90%E8%A8%98%E9%8C%B2/2025/05/27/LogAnalysis.html">
+
+
+  <meta property="og:description" content="事前知識">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-05-27T00:00:00+09:00">
+
+
+
+
+
+
+<link rel="canonical" href="/%E8%A7%A3%E6%9E%90%E8%A8%98%E9%8C%B2/2025/05/27/LogAnalysis.html">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="若葉ログ Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true });
+</script>
+
+  </head>
+
+  <body class="layout--single" dir="ltr">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          若葉ログ
+          
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="セクタサイズが原因？LocalDBが起動しないトラブルの解析記録">
+    <meta itemprop="description" content="事前知識">
+    <meta itemprop="datePublished" content="2025-05-27T00:00:00+09:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">
+            <a href="/%E8%A7%A3%E6%9E%90%E8%A8%98%E9%8C%B2/2025/05/27/LogAnalysis.html" itemprop="url">セクタサイズが原因？LocalDBが起動しないトラブルの解析記録
+</a>
+          </h1>
+          
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h2 id="事前知識">事前知識</h2>
+
+<p>私が曖昧だったことや知らなかったことを、事前知識としてまとめています。</p>
+
+<h3 id="セクタサイズ">セクタサイズ</h3>
+
+<p>HDDやSSDなどのストレージにデータを書き込んだり読み込んだりする時の単位となるサイズです。</p>
+
+<p>物理セクタサイズと論理セクタサイズが存在します。</p>
+
+<p>セクタサイズは製造段階で決められており、今の主流は4096バイトです。</p>
+
+<h3 id="direct-io">Direct I/O</h3>
+
+<p>ファイルシステムを経由せず、直接ストレージに書き込む技術です。</p>
+
+<p>Direct I/Oを使う場合、アプリ側はOSから物理セクタサイズを取得し、それを信じて書き込み・読み込みを行うようです。</p>
+
+<h2 id="状況">状況</h2>
+
+<ul>
+  <li>OS: Windows</li>
+  <li>IDE: Visual Studio</li>
+  <li>RDBMS: SQL Server(LocalDB) 2019</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">C#</code>環境の構築にて、友人のPCでエラーが発生したので、エラー解決を手伝いました。</p>
+
+<p>すでに作成されてるマイグレーションをデータベースに反映しようとすると、次のようなエラーが出るのです。<br />
+このエラーメッセージは、SQL Server が起動していない、または見つけられないことを示しています。</p>
+
+<pre><code class="language-txt">Error Number:2,State:0,Class:20
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 52 - Unable to locate a Local Database Runtime installation. Verify that SQL Server Express is properly installed and that the Local Database Runtime feature is enabled.)
+</code></pre>
+
+<p>まずは、SQLが起動していることを確認したかったので、コマンドプロンプトで<code class="language-plaintext highlighter-rouge">sqllocaldb i</code>と打ち確認します。<br />
+すると必要なインスタンス（<code class="language-plaintext highlighter-rouge">MSSQLLocalDB</code>）は存在していました。</p>
+
+<p>次に、インスタンスが起動してることを確認するために、<code class="language-plaintext highlighter-rouge">sqllocaldb i MSSQLLocalDB</code>と打ちます。<br />
+すると<code class="language-plaintext highlighter-rouge">State: Stopped</code>となっており、起動していないことがわかりました。</p>
+
+<p>念の為、<code class="language-plaintext highlighter-rouge">sqllocaldb start MSSQLLocalDB</code>を実行してみるとエラーが発生しました。</p>
+
+<p>このエラーのログファイルは<code class="language-plaintext highlighter-rouge">C:\Users\name\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\error.log</code>に記録されており、そこに次のメッセージが出力されていました。</p>
+
+<pre><code class="language-log">2025-05-24 15:50:00.27 spid28s     There have been 256 misaligned log IOs which required falling back to synchronous IO.  The current IO is on file C:\Users\name\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\master.mdf.
+</code></pre>
+
+<p>ここからさらに深く状況を知るため、Event Viewer、Process Monitor、services.mscなどを使って解決を試みました。</p>
+
+<h2 id="試したこと">試したこと</h2>
+
+<p>はじめにProcess Monitorで、<code class="language-plaintext highlighter-rouge">sqlservr.exe</code>の動きを見てみると<code class="language-plaintext highlighter-rouge">ACCESS DENIED</code>のエラーが数百件見つかり、参照しているディレクトリの権限を確認すると全て問題なさそうでした。</p>
+
+<p>次に<code class="language-plaintext highlighter-rouge">Local DB 2019</code>を使っているのが原因であり、<code class="language-plaintext highlighter-rouge">Local DB 2022</code>に変更すると解決するかもしれないという仮説から、2022をインストールしてみましたが解決できませんでした。</p>
+
+<p>困った挙句、先ほどのログからI/O関係で詰まっている可能性を考え、そこに絞り調べてみることにしました。</p>
+
+<h2 id="結論">結論</h2>
+
+<p>結論としては、この判断は正しく、セクタサイズが問題でした。</p>
+
+<p>すでにMicrosoftのドキュメントにも公開されています。<br />
+<a href="https://learn.microsoft.com/ja-jp/troubleshoot/sql/database-engine/database-file-operations/troubleshoot-os-4kb-disk-sector-size?tabs=registry-editor">詳しくはこちら</a></p>
+
+<p>実は友人のSSDは物理セクタ8192バイトだったのです。<br />
+通常のアプリであればファイルシステムを経由し、データを書き込むので、問題になることはありません。</p>
+
+<p>しかし、Local DBはDirect I/Oなのでセクタサイズが関係してきます。<br />
+上のドキュメントにも「セクターサイズが4KBを超えるマシンにSQL Serverインスタンスをインストールしようとするとエラーが発生する」と言ったことが書かれています。</p>
+
+<p>そこで、レジストリエディタを使い、サイトの通り設定してみると解決しました。</p>
+
+<h2 id="感想">感想</h2>
+
+<p>結果的には、ドキュメントを調べるとすぐ解決できる問題でした。</p>
+
+<p>つまり、Process Monitorなどのツールを使う必要はなかったですが、再現性の高い解析方法なので実際の問題に対して使ってみる経験ができてよかったです。</p>
+
+<p>また、強いて言うならユーザの権限のような他の可能性を潰すことに役立ちました。</p>
+
+<p>問題が起きた時、私は適当に試行錯誤するのではなく、「仮説を立てて検証」というサイクルを回すことが大切だと考えています。</p>
+
+<p>ただ、セクタサイズの問題なんて頭の片隅にもなかったので、まだまだ勉強が必要だなと実感しました。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2025-05-27T00:00:00+09:00">May 27, 2025</time></p>
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="#" class="pagination--pager disabled">Previous</a>
+    
+    
+      <a href="/%E5%8B%89%E5%BC%B7%E8%A8%98%E9%8C%B2/2025/07/14/systemctl.html" class="pagination--pager" title="systemctlとは？勉強記録">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 <a href="">若葉ログ</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/jekyll-themes/minimal-mistakes/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
