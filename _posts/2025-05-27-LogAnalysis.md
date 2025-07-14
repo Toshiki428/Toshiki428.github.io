@@ -1,6 +1,8 @@
 ---
 title: "セクタサイズが原因？LocalDBが起動しないトラブルの解析記録"
 date: 2025-05-27
+categories: [解析記録]
+layout: single
 ---
 
 ## 事前知識

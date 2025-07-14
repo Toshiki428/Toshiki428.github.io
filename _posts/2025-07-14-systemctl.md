@@ -1,6 +1,8 @@
 ---
 title: "`systemctl`とは？勉強記録"
 date: 2025-07-14
+categories: [勉強記録]
+layout: single
 ---
 
 本記事では「`systemctl`とは何か」をまとめています。
@@ -19,13 +21,13 @@ date: 2025-07-14
 
 私が思う`systemctl`の理解に必要な知識マップです。
 
-```mermaid
+<div class="mermaid">
 graph TD
   A[systemctlとは] --> B[デーモンとは]
   B --> C[バックグラウンドプロセスとは]
   A --> D[systemdとは]
   D --> E[initプロセスとは]
-```
+</div>
 
 ## 本題
 

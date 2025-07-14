@@ -1,1 +1,10 @@
-theme: minima
+title: 若葉ログ
+description: 若葉ログは、自分自身の技術学習と成長を記録するアウトプットの場です。ただのメモではなく、この記録が誰かの学びや気づきにつながれば嬉しいです。
+theme: minimal-mistakes-jekyll
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+include:
+  - _includes/head/custom.html
