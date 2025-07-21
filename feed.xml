@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-07-21T17:44:53+09:00</updated><id>/feed.xml</id><title type="html">若葉ログ</title><subtitle>若葉ログは、自分自身の技術学習と成長を記録するアウトプットの場です。ただのメモではなく、この記録が誰かの学びや気づきにつながれば嬉しいです。</subtitle><entry><title type="html">SoloDo開発ログ - Reactと向き合った1週間</title><link href="/%E9%96%8B%E7%99%BA%E8%A8%98%E9%8C%B2/%E5%8B%89%E5%BC%B7%E8%A8%98%E9%8C%B2/2025/07/21/SoloDoLog.html" rel="alternate" type="text/html" title="SoloDo開発ログ - Reactと向き合った1週間" /><published>2025-07-21T00:00:00+09:00</published><updated>2025-07-21T00:00:00+09:00</updated><id>/%E9%96%8B%E7%99%BA%E8%A8%98%E9%8C%B2/%E5%8B%89%E5%BC%B7%E8%A8%98%E9%8C%B2/2025/07/21/SoloDoLog</id><content type="html" xml:base="/%E9%96%8B%E7%99%BA%E8%A8%98%E9%8C%B2/%E5%8B%89%E5%BC%B7%E8%A8%98%E9%8C%B2/2025/07/21/SoloDoLog.html"><![CDATA[<h2 id="solodoとは">SoloDoとは</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-07-21T20:39:54+09:00</updated><id>/feed.xml</id><title type="html">若葉ログ</title><subtitle>若葉ログは、自分自身の技術学習と成長を記録するアウトプットの場です。ただのメモではなく、この記録が誰かの学びや気づきにつながれば嬉しいです。</subtitle><entry><title type="html">SoloDo開発ログ - Reactと向き合った1週間</title><link href="/%E9%96%8B%E7%99%BA%E8%A8%98%E9%8C%B2/%E5%8B%89%E5%BC%B7%E8%A8%98%E9%8C%B2/2025/07/21/SoloDoLog.html" rel="alternate" type="text/html" title="SoloDo開発ログ - Reactと向き合った1週間" /><published>2025-07-21T00:00:00+09:00</published><updated>2025-07-21T00:00:00+09:00</updated><id>/%E9%96%8B%E7%99%BA%E8%A8%98%E9%8C%B2/%E5%8B%89%E5%BC%B7%E8%A8%98%E9%8C%B2/2025/07/21/SoloDoLog</id><content type="html" xml:base="/%E9%96%8B%E7%99%BA%E8%A8%98%E9%8C%B2/%E5%8B%89%E5%BC%B7%E8%A8%98%E9%8C%B2/2025/07/21/SoloDoLog.html"><![CDATA[<h2 id="solodoとは">SoloDoとは</h2>
 
 <p>「Solo（自分で）＋Do（やる）」という意味で名前を考えた、自律学習Webアプリです。</p>
 
@@ -86,7 +86,7 @@
   <li>バックグラウンドでの時間経過の計算。計算式は「<code class="language-plaintext highlighter-rouge">今の時間</code> - <code class="language-plaintext highlighter-rouge">タイマーを動かした時間</code>」。</li>
 </ol>
 
-<p><img src="../assets/images/post/2024-07-21-solodo-log/screenshot.png" alt="localStrageの画像" /></p>
+<p><img src="/assets/images/post/2024-07-21-solodo-log/screenshot.png" alt="localStrageの画像" /></p>
 
 <h3 id="3-stateが更新されない問題">3. stateが更新されない問題</h3>
 
