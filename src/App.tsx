@@ -4,7 +4,6 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Portfolio from './pages/Portfolio'
 import Blog from './pages/Blog'
-import './App.css'
 
 const App: React.FC = () => {
   return (
