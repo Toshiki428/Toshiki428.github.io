@@ -46,3 +46,52 @@ export const getPortfolioContents = (): PortfolioItem[] => {
     }
     return portfolioItems
 }
+
+export interface BlogPost {
+    slug: string
+    title: string
+    date: string
+    tags: string[]
+    content: string
+}
+
+export const getBlogPosts = (): BlogPost[] => {
+    const posts: BlogPost[] = []
+
+    for (const path in markdownFiles) {
+        if (path.startsWith('../contents/blog/')) {
+            const rawContent = markdownFiles[path]
+            const { data, content } = matter(rawContent)
+            const slug = path.replace('../contents/blog/', '').replace('.md', '')
+
+            posts.push({
+                slug,
+                title: data.title || 'No Title',
+                date: data.date || '1970-01-01',
+                tags: data.tags || [],
+                content: content.trim(),
+            })
+        }
+    }
+
+    return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+}
+
+export const getBlogPost = (slug: string): BlogPost | null => {
+    const filePath = `../contents/blog/${slug}.md`
+    const rawContent = markdownFiles[filePath]
+
+    if (!rawContent) {
+        return null
+    }
+
+    const { data, content } = matter(rawContent)
+
+    return {
+        slug,
+        title: data.title || 'No Title',
+        date: data.date || '1970-01-01',
+        tags: data.tags || [],
+        content: content.trim(),
+    }
+}
