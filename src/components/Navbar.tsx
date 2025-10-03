@@ -1,22 +1,43 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   return (
-    <nav>
-      <ul>
+    <nav className="bg-gray-800 p-4">
+      <ul className="flex justify-center space-x-6">
         <li>
-          <Link to="/">Home</Link>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? 'text-white font-bold underline' : 'text-gray-300 hover:text-white'
+            }
+          >
+            Home
+          </NavLink>
         </li>
         <li>
-          <Link to="/portfolio">Portfolio</Link>
+          <NavLink
+            to="/portfolio"
+            className={({ isActive }) =>
+              isActive ? 'text-white font-bold underline' : 'text-gray-300 hover:text-white'
+            }
+          >
+            Portfolio
+          </NavLink>
         </li>
         <li>
-          <Link to="/blog">Blog</Link>
+          <NavLink
+            to="/blog"
+            className={({ isActive }) =>
+              isActive ? 'text-white font-bold underline' : 'text-gray-300 hover:text-white'
+            }
+          >
+            Blog
+          </NavLink>
         </li>
       </ul>
     </nav>
-  )
-}
+  );
+};
 
 export default Navbar
