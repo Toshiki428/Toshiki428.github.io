@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { getBlogPost, type BlogPost as BlogPostType } from '../utils/Markdown'
+import Mermaid from '../components/Mermaid'
 
 const BlogPost: React.FC = () => {
   const { slug } = useParams<{ slug: string }>()
@@ -33,7 +34,28 @@ const BlogPost: React.FC = () => {
             </span>
           ))}
         </div>
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={{
+            pre: (props) => {
+              const { node, children, ...rest } = props
+              if (React.isValidElement(children)) {
+                const childProps = children.props as { className?: string; children?: React.ReactNode }
+                if (childProps.className === 'language-mermaid') {
+                  const codeString = childProps.children
+                  return (
+                    <pre className="!bg-transparent">
+                      <Mermaid chart={String(codeString).replace(/\n$/, '')} />
+                    </pre>
+                  )
+                }
+              }
+              return <pre {...rest}>{children}</pre>
+            },
+          }}
+        >
+          {post.content}
+        </ReactMarkdown>
       </article>
     </div>
   )
