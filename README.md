@@ -1,73 +1,80 @@
-# React + TypeScript + Vite
+# Toshiki428.github.io - Personal Portfolio & Blog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ライブデモ
 
-Currently, two official plugins are available:
+[サイトを見る](https://toshiki428.github.io/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 概要
 
-## React Compiler
+このプロジェクトは、私のポートフォリオと技術ブログを兼ねた個人ウェブサイトです。  
+React、TypeScript、Viteを使用して構築されており、GitHub Pagesでホストされています。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+私のスキル、プロジェクト、技術的な知見を紹介することを目的としています。
 
-## Expanding the ESLint configuration
+## 主な機能
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **レスポンシブデザイン**: あらゆるデバイスで快適に閲覧できます。
+- **Markdownベースのコンテンツ管理**: ポートフォリオやブログ記事はMarkdownファイルで簡単に管理できます。
+- **ポートフォリオ表示**: 過去のプロジェクトを一覧で紹介します。
+- **ブログ記事**: 技術的なトピックや開発経験に関する記事を公開します。
+- **Mermaid図のサポート**: コードブロック内でMermaid記法を使用することで、図をレンダリングできます。
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 技術スタック
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **フレームワーク**: React
+- **言語**: TypeScript
+- **ビルドツール**: Vite
+- **スタイリング**: Tailwind CSS, `@tailwindcss/typography`
+- **Markdownレンダリング**: `react-markdown`, `remark-gfm`
+- **コンテンツ解析**: `gray-matter`
+- **その他**: `buffer` (Node.js `Buffer`のブラウザポリフィル)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## セットアップ
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+ローカルで開発環境をセットアップし、プロジェクトを実行するための手順です。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **リポジトリをクローン**:
+    ```bash
+    git clone https://github.com/Toshiki428/Toshiki428.github.io.git
+    cd Toshiki428.github.io
+    ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. **依存関係のインストール**:
+    ```bash
+    npm install
+    ```
+
+3. **開発サーバーの起動**:
+    ```bash
+    npm run dev
+    ```
+    ブラウザで `http://localhost:5173` (または表示されるURL) を開くと、開発サーバーが起動し、変更がリアルタイムで反映されます。
+
+4. **プロジェクトのビルド**:
+    ```bash
+    npm run build
+    ```
+    本番環境用の静的ファイルが `dist` ディレクトリに生成されます。
+
+5. **プロジェクトのデプロイ**:
+    ```bash
+    npm run deploy
+    ```
+
+## コンテンツ管理
+
+ポートフォリオやブログ記事のコンテンツは、`src/contents/` ディレクトリ内のMarkdownファイルとして管理されます。
+
+- **ポートフォリオ**: `src/contents/portfolio/` に `.md` ファイルを追加。
+- **ブログ記事**: `src/contents/blog/` に `.md` ファイルを追加。
+- **Aboutページ**: `src/contents/pages/about.md` を編集。
+
+各Markdownファイルは、フロントマター（YAML形式のメタデータ）をサポートしており、タイトル、日付、タグなどの情報を記述できます。
+
+## デプロイ
+
+このプロジェクトはGitHub Pagesにデプロイされます。`main` ブランチへのプッシュにより、GitHub Actionsが自動的にビルドとデプロイを実行します。
+
+## 著者
+
+Toshiki428 - [GitHub](https://github.com/Toshiki428)
