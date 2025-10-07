@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getBlogPosts, type BlogPost } from '../utils/Markdown'
+import { getBlogPosts, type BlogPost } from '../utils/blog'
 
 const Blog: React.FC = () => {
   const [groupedPosts, setGroupedPosts] = useState<Record<string, BlogPost[]>>({})

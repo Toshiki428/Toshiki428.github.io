@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getPortfolioContents, type PortfolioItem } from '../utils/Markdown'
+import { getPortfolioContents, type PortfolioItem } from '../utils/portfolio'
 
 const Portfolio: React.FC = () => {
   const [items, setItems] = useState<PortfolioItem[]>([])

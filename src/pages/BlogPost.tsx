@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { getBlogPost, type BlogPost as BlogPostType } from '../utils/Markdown'
+import { getBlogPost, type BlogPost as BlogPostType } from '../utils/blog'
 import Mermaid from '../components/Mermaid'
 
 const BlogPost: React.FC = () => {
