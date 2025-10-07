@@ -2,6 +2,7 @@
 title: 'systemctlとは？'
 date: '2025-07-14'
 tags: ['Linux', 'systemctl', 'daemon']
+category: 'STUDY_LOG'
 ---
 
 本記事では`systemctl`についてまとめています。

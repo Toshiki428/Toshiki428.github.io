@@ -1,4 +1,5 @@
 import matter from 'gray-matter'
+import { categories, UNCLASSIFIED_CATEGORY, type CategoryID } from '../constants/categories'
 
 const markdownFiles = import.meta.glob('../contents/**/*.md', {
     eager: true,
@@ -53,6 +54,15 @@ export interface BlogPost {
     date: string
     tags: string[]
     content: string
+    category: {
+        id: CategoryID | 'UNCLASSIFIED'
+        displayName: string
+        order: number
+    }
+}
+
+const isValidCategoryID = (id: any): id is CategoryID => {
+    return id in categories
 }
 
 export const getBlogPosts = (): BlogPost[] => {
@@ -64,12 +74,24 @@ export const getBlogPosts = (): BlogPost[] => {
             const { data, content } = matter(rawContent)
             const slug = path.replace('../contents/blog/', '').replace('.md', '')
 
+            const categoryId = data.category
+            const isValid = isValidCategoryID(categoryId)
+
+            const categoryInfo = isValid ? categories[categoryId] : UNCLASSIFIED_CATEGORY
+            const id: CategoryID | 'UNCLASSIFIED' = isValid ? categoryId : 'UNCLASSIFIED'
+
+            const category = {
+                id,
+                ...categoryInfo
+            }
+
             posts.push({
                 slug,
                 title: data.title || 'No Title',
                 date: data.date || '1970-01-01',
                 tags: data.tags || [],
                 content: content.trim(),
+                category,
             })
         }
     }
@@ -86,6 +108,16 @@ export const getBlogPost = (slug: string): BlogPost | null => {
     }
 
     const { data, content } = matter(rawContent)
+    const categoryId = data.category
+    const isValid = isValidCategoryID(categoryId)
+
+    const categoryInfo = isValid ? categories[categoryId] : UNCLASSIFIED_CATEGORY
+    const id: CategoryID | 'UNCLASSIFIED' = isValid ? categoryId : 'UNCLASSIFIED'
+
+    const category = {
+        id,
+        ...categoryInfo
+    }
 
     return {
         slug,
@@ -93,5 +125,6 @@ export const getBlogPost = (slug: string): BlogPost | null => {
         date: data.date || '1970-01-01',
         tags: data.tags || [],
         content: content.trim(),
+        category,
     }
 }

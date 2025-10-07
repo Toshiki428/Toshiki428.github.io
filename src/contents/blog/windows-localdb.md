@@ -2,6 +2,7 @@
 title: 'セクタサイズが原因？LocalDBが起動しないトラブルの解析記録'
 date: '2025-05-27'
 tags: ['Windows', 'LocalDB', 'エラー解決']
+category: 'STUDY_LOG'
 ---
 
 ## 事前知識

@@ -2,6 +2,7 @@
 title: '個人開発アプリ「SoloDo」の制作裏話'
 date: '2025-07-21'
 tags: ['React', 'TypeScript', '個人開発']
+category: 'DEV_LOG'
 ---
 
 ## SoloDoとは
