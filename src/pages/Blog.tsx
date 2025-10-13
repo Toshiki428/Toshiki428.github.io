@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { getBlogPosts, type BlogPost } from '../utils/blog'
+import PostCard from '../components/PostCard'
 
 const Blog: React.FC = () => {
   const [groupedPosts, setGroupedPosts] = useState<Record<string, BlogPost[]>>({})
@@ -40,23 +40,7 @@ const Blog: React.FC = () => {
               <h2 className="text-2xl font-bold mb-6 border-b-2 border-gray-200 pb-2">{category}</h2>
               <div className="space-y-8">
                 {posts.map((post) => (
-                  <div key={post.slug} className="bg-white rounded-lg shadow-md p-6">
-                    <h3 className="text-xl font-bold mb-2">
-                      <Link to={`/blog/${post.slug}`} className="text-blue-600 hover:underline">
-                        {post.title}
-                      </Link>
-                    </h3>
-                    <div className="text-gray-600 text-sm mb-4">
-                      {new Date(post.date).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {post.tags.map((tag) => (
-                        <span key={tag} className="bg-gray-200 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                  <PostCard key={post.slug} post={post} />
                 ))}
               </div>
             </div>
